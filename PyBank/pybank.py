@@ -2,7 +2,7 @@ import os
 import csv
 
 # Pull in the csv
-csvpath = os.path.join("PyBank", "budget_data_1.csv")
+csvpath = os.path.join("PyBank", "budget_data_2.csv")
 
 with open(csvpath, newline='') as csvfile:
     # Skip the first line because it contains the headers.
@@ -37,14 +37,25 @@ with open(csvpath, newline='') as csvfile:
     maxIncIndex = revChange.index(maxIncrease)
     maxIncMonth = months[maxIncIndex]   # have to add one since the revchange list is one month ahead
 
-    avgChange = round(sum(revChange)/float(len(revChange)), 0)
+    avgChange = int(sum(revChange)/float(len(revChange)))
         
-
-
 print("Financial Analysis")
-print("-" * 20)
+print("-" * 25)
 print(f'Total Months: {len(months)}')
 print(f'Total Revenue: ${totalRevenue}')
 print(f'Average Revenue Change: ${avgChange}')
 print(f'Greatest Increase in Revenue: {maxIncMonth} (${maxIncrease})')
 print(f'Greatest Decrease in Revenue: {maxDecMonth} (${maxDecrease})')
+
+output_file = os.path.join('PyBank','financial_analysis.txt')
+
+with open(output_file, "w", newline='') as datafile:
+
+    # write the header then loop through the list and write each row
+    print("Financial Analysis", file = datafile)
+    print("-" * 25, file = datafile)
+    print(f'Total Months: {len(months)}', file = datafile)
+    print(f'Total Revenue: ${totalRevenue}', file = datafile)
+    print(f'Average Revenue Change: ${avgChange}', file = datafile)
+    print(f'Greatest Increase in Revenue: {maxIncMonth} (${maxIncrease})', file = datafile)
+    print(f'Greatest Decrease in Revenue: {maxDecMonth} (${maxDecrease})', file = datafile)
