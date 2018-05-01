@@ -2,14 +2,17 @@
 import os
 import csv
 
+# Strategy: read line by line, add votes to a dictionary.
+# Dynamically add candidates, since we might not know how many candidates will be on the ballot
+
+# Initialize the voting dictionary globally, since we need to write it to a file later
+candidates = {}
+
 # define the csv path, it lives in the PyPoll folder in the workspace
 csvpath = os.path.join("PyPoll", "election_data_1.csv")
 
 # open the csv and start reading in the data
 with open(csvpath, newline='') as csvfile:
-
-    # Strategy: read line by line, add votes to a dictionary.
-    # Dynamically add candidates, since we might not know how many candidates will be on the ballot
 
     # Skip the first line because it contains the headers.
     next(csvfile)
@@ -17,8 +20,6 @@ with open(csvpath, newline='') as csvfile:
     # create the reader object to iterate through
     csvreader = csv.reader(csvfile, delimiter=',')
 
-    # Initialize the voting dictionary
-    candidates = {}
 
     # Loop through the rows of the csv
     for row in csvreader:
@@ -49,8 +50,27 @@ with open(csvpath, newline='') as csvfile:
     print("-" * 25)
     print(f'Total Votes: {totalVotes}')
     print("-" * 25)
+    # Use a loop since we're printing data on each element in the candidate dictionary
     for candidate in candidates:
         print(f'{candidate}: {round(100*candidates[candidate]/totalVotes,1)}% ({candidates[candidate]})')
     print("-" * 25)
     print(f'Winner: {winner}')
     print("-" * 25)
+
+# Define the file name for printing the election results
+output_file = os.path.join('PyPoll','election_results.txt')
+
+# Open the document so we can write to it
+with open(output_file, "w", newline='') as datafile:
+
+    # Write the results to the txt file
+    print("Election Results", file = datafile)
+    print("-" * 25, file = datafile)
+    print(f'Total Votes: {totalVotes}', file = datafile)
+    print("-" * 25, file = datafile)
+    # Use a loop since we're writing data on each element in the candidate dictionary
+    for candidate in candidates:
+        print(f'{candidate}: {round(100*candidates[candidate]/totalVotes,1)}% ({candidates[candidate]})', file = datafile)
+    print("-" * 25, file = datafile)
+    print(f'Winner: {winner}', file = datafile)
+    print("-" * 25, file = datafile)
