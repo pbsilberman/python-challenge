@@ -1,3 +1,5 @@
 # python-challenge
 
-Contains my week 3 homework.
+Contains the week 3 homework.
+
+The chosen challenges are PyBank and PyPolls.

@@ -9,7 +9,7 @@ import csv
 candidates = {}
 
 # define the csv path, it lives in the PyPoll folder in the workspace
-csvpath = os.path.join("PyPoll", "election_data_1.csv")
+csvpath = os.path.join("PyPoll", "election_data_2.csv")
 
 # open the csv and start reading in the data
 with open(csvpath, newline='') as csvfile:
