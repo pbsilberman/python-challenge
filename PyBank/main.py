@@ -3,7 +3,7 @@ import os
 import csv
 
 # Designate the CSV file path
-csvpath = os.path.join("PyBank", "budget_data_2.csv")
+csvpath = os.path.join("PyBank", "budget_data_1.csv")
 
 # Start reading in the CSV
 with open(csvpath, newline='') as csvfile:
@@ -44,8 +44,10 @@ with open(csvpath, newline='') as csvfile:
     maxIncIndex = revChange.index(maxIncrease)
     maxIncMonth = months[maxIncIndex + 1]
 
-    # Compute the average change over the revChange list
-    avgChange = int(sum(revChange)/float(len(revChange)))
+    # Compute the average revenue change over the revChange list
+    # note that we want the MAGNITUDE of revenue change so we take the absolute value of the elements in the list
+    revChangeMag = [abs(number) for number in revChange]
+    avgChange = int(sum(revChangeMag)/float(len(revChangeMag)))
 
 # Print the results to the terminal        
 print("Financial Analysis")
